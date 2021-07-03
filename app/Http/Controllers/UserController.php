@@ -86,7 +86,7 @@ class UserController extends Controller
      */
     public function update(UserRequest $request,$id)
     {
-        User::whereIn("id",$request->id)->update(["name"=>"shani pratap gupt"]);
+        User::whereIn("id",$request->id)->update(["name"=>"shani pratap gupta"]);
         // $user=User::find($request->id);
         // if($user) {
         //   $user->update(["name"=>"shani"]);
