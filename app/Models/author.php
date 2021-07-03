@@ -9,8 +9,6 @@ class author extends Model
 {
     use HasFactory;
 
-    public $timestamp=false;
-
     protected $guarded=[];
 
 }
