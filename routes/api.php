@@ -26,11 +26,10 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     //     return auth()->user();
     // });
 
-
     Route::apiResource("login", UserController::class);
 
 });
 
-Route::apiResource('/author', AuthorController::class);
+Route::resource('/author', AuthorController::class);
 
 // Route::apiResource("login", userController::class);

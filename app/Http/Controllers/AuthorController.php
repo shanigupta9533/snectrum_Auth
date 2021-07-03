@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AuthorRequest;
 use App\Models\author;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
+use function GuzzleHttp\Promise\all;
 
 class AuthorController extends Controller
 {
@@ -34,10 +37,10 @@ class AuthorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,author $author)
+    public function store(Request $request, author $author)
     {
-        // $result=$author->create($request->all());
-        return auth()->user();
+        $result = $author->create($request->all());
+        return $result;
     }
 
     /**
@@ -49,7 +52,6 @@ class AuthorController extends Controller
     public function show(author $author)
     {
         return author::all();
-        
     }
 
     /**
@@ -70,9 +72,15 @@ class AuthorController extends Controller
      * @param  \App\Models\author  $author
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, author $author)
+    public function update(AuthorRequest $request, $id)
     {
-        //
+        $input = $request->except(['id']);
+        $result = Author::whereIn("id", $request->id)->update($input);
+
+        if ($result > 0)
+            return  response()->json(["message" => "Data Updated Successfully"], 200);
+        else
+            return response()->json(["message" => "nothing found"], 400);
     }
 
     /**
